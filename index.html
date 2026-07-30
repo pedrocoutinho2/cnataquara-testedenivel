@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teste de Nível de Inglês Grátis | CNA Taquara</title>
+<meta name="description" content="Descubra seu nível de inglês em 3 minutos. Teste rápido e gratuito do CNA Taquara, na Zona Oeste do Rio. Você monstrão no Inglês!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#E6143C;
+  --red-dark:#A30E2A;
+  --blue:#19408B;
+  --white:#FFFFFF;
+  --ink:#1A1A1A;
+  --gray:#5A5A5A;
+  --gray-line:#E4E4E7;
+  --surface:#F7F7F9;
+  --green:#1E8E4E;
+  --radius:14px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:'Poppins',system-ui,sans-serif;
+  background:var(--surface);
+  color:var(--ink);
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
+/* ===== HEADER ===== */
+header{
+  background:var(--white);
+  border-bottom:1px solid var(--gray-line);
+  padding:14px 20px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.brand{font-weight:800;font-size:1.35rem;letter-spacing:-.5px}
+.brand .cna{color:var(--red)}
+.brand .unidade{color:var(--blue);font-weight:600;font-size:1.05rem;margin-left:6px}
+/* ===== LAYOUT ===== */
+main{flex:1;display:flex;justify-content:center;padding:24px 16px 48px}
+.wrap{width:100%;max-width:520px}
+.card{
+  background:var(--white);
+  border:1px solid var(--gray-line);
+  border-radius:var(--radius);
+  padding:28px 24px;
+  box-shadow:0 4px 24px rgba(25,64,139,.06);
+}
+.hidden{display:none!important}
+/* ===== HERO ===== */
+.hero{text-align:center;margin-bottom:22px}
+.hero .tag{
+  display:inline-block;background:var(--blue);color:var(--white);
+  font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:6px 14px;border-radius:999px;margin-bottom:14px;
+}
+.hero h1{font-size:1.85rem;font-weight:800;line-height:1.15;color:var(--ink)}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{color:var(--gray);margin-top:10px;font-size:.95rem}
+.hero .meta{
+  display:flex;justify-content:center;gap:18px;margin-top:16px;
+  font-size:.8rem;color:var(--blue);font-weight:600;
+}
+/* ===== FORM ===== */
+label{display:block;font-size:.82rem;font-weight:600;margin:16px 0 6px;color:var(--ink)}
+input[type=text],input[type=tel],input[type=number]{
+  width:100%;padding:13px 14px;font-size:1rem;font-family:inherit;
+  border:1.5px solid var(--gray-line);border-radius:10px;background:var(--white);
+  transition:border-color .15s;
+}
+input:focus{outline:none;border-color:var(--blue)}
+input.invalid{border-color:var(--red)}
+.err{color:var(--red-dark);font-size:.76rem;margin-top:5px;display:none}
+.err.show{display:block}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:.8rem;color:var(--gray);line-height:1.45}
+.check input{margin-top:3px;accent-color:var(--red);width:17px;height:17px;flex-shrink:0}
+.check a{color:var(--blue);font-weight:600}
+.notice-menor{
+  background:#FFF4E8;border:1px solid #F2C892;border-radius:10px;
+  padding:12px 14px;font-size:.8rem;color:#7A4A00;margin-top:14px;line-height:1.5;
+}
+.btn{
+  display:block;width:100%;padding:16px;margin-top:22px;
+  background:var(--red);color:var(--white);border:none;border-radius:12px;
+  font-family:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;
+  transition:background .15s,transform .1s;
+}
+.btn:hover{background:var(--red-dark)}
+.btn:active{transform:scale(.98)}
+.btn:disabled{background:var(--gray-line);color:var(--gray);cursor:not-allowed}
+.btn.outline{background:var(--white);color:var(--blue);border:2px solid var(--blue)}
+.btn.wa{background:#1FAF57}
+.btn.wa:hover{background:#178A44}
+/* ===== TEST ===== */
+.progress-zone{margin-bottom:18px}
+.progress-label{display:flex;justify-content:space-between;font-size:.78rem;font-weight:600;color:var(--gray);margin-bottom:8px}
+.progress-label .monstro{color:var(--red)}
+.bar{height:10px;background:var(--gray-line);border-radius:999px;overflow:hidden}
+.bar-fill{height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--red-dark));border-radius:999px;transition:width .4s ease}
+.q-text{font-size:1.15rem;font-weight:700;line-height:1.4;margin-bottom:20px}
+.q-text .blank{color:var(--blue);border-bottom:2px solid var(--blue);padding:0 4px}
+.opt{
+  display:flex;align-items:center;gap:12px;width:100%;
+  padding:14px 16px;margin-bottom:10px;text-align:left;
+  background:var(--white);border:1.5px solid var(--gray-line);border-radius:12px;
+  font-family:inherit;font-size:1rem;font-weight:500;color:var(--ink);
+  cursor:pointer;transition:border-color .12s,background .12s;
+}
+.opt .letter{
+  width:30px;height:30px;flex-shrink:0;border-radius:8px;
+  background:var(--surface);color:var(--blue);font-weight:700;font-size:.85rem;
+  display:flex;align-items:center;justify-content:center;
+}
+.opt:hover{border-color:var(--blue)}
+.opt.correct{border-color:var(--green);background:#EAF7EF}
+.opt.correct .letter{background:var(--green);color:var(--white)}
+.opt.wrong{border-color:var(--red);background:#FDEEF1}
+.opt.wrong .letter{background:var(--red);color:var(--white)}
+.opt:disabled{cursor:default}
+/* ===== RESULT ===== */
+.result{text-align:center}
+.result .badge{
+  display:inline-flex;flex-direction:column;align-items:center;justify-content:center;
+  width:150px;height:150px;border-radius:50%;
+  background:var(--blue);color:var(--white);margin-bottom:18px;
+}
+.result .badge .lvl{font-size:1.3rem;font-weight:800;line-height:1.1;padding:0 12px}
+.result .badge .score{font-size:.75rem;opacity:.85;margin-top:4px}
+.result h2{font-size:1.5rem;font-weight:800}
+.result h2 em{font-style:normal;color:var(--red)}
+.result .curso{
+  display:inline-block;background:var(--red);color:var(--white);
+  font-weight:700;font-size:.85rem;padding:7px 16px;border-radius:999px;margin:12px 0;
+}
+.result p{color:var(--gray);font-size:.92rem;line-height:1.55}
+.result .disclaimer{
+  background:var(--surface);border-radius:10px;padding:12px 14px;
+  font-size:.78rem;color:var(--gray);margin-top:18px;line-height:1.5;text-align:left;
+}
+/* ===== FOOTER / COOKIES ===== */
+footer{
+  background:var(--white);border-top:1px solid var(--gray-line);
+  padding:18px 20px;text-align:center;font-size:.75rem;color:var(--gray);line-height:1.7;
+}
+footer a{color:var(--blue);font-weight:600;text-decoration:none}
+#cookieBanner{
+  position:fixed;bottom:0;left:0;right:0;z-index:50;
+  background:var(--ink);color:var(--white);
+  padding:16px 20px;display:flex;flex-wrap:wrap;gap:12px;
+  align-items:center;justify-content:center;font-size:.8rem;line-height:1.5;
+}
+#cookieBanner a{color:#8FB4F5;font-weight:600}
+#cookieBanner button{
+  background:var(--red);color:var(--white);border:none;border-radius:8px;
+  padding:10px 22px;font-family:inherit;font-weight:700;cursor:pointer;
+}
+@media (min-width:640px){
+  .hero h1{font-size:2.2rem}
+  .card{padding:36px 34px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand"><span class="cna">CNA</span><span class="unidade">Taquara</span></div>
+</header>
+
+<main><div class="wrap">
+
+  <!-- ========== TELA 1: HERO + FORM ========== -->
+  <section id="screenStart">
+    <div class="hero">
+      <span class="tag">Teste de nível grátis</span>
+      <h1>Você <em>monstrão</em> no Inglês?</h1>
+      <p>Responda 12 perguntas rápidas e descubra seu nível. No final, a gente te indica o curso certo pra você aqui na Taquara.</p>
+      <div class="meta"><span>⏱ 3 minutos</span><span>✔ 100% gratuito</span><span>📱 Resultado na hora</span></div>
+    </div>
+
+    <div class="card">
+      <form id="leadForm" novalidate>
+        <label for="nome">Seu nome completo</label>
+        <input type="text" id="nome" autocomplete="name" placeholder="Ex.: Maria da Silva" required>
+        <div class="err" id="errNome">Digite seu nome completo (nome e sobrenome).</div>
+
+        <label for="idade">Idade de quem vai fazer o teste</label>
+        <input type="number" id="idade" inputmode="numeric" min="5" max="99" placeholder="Ex.: 25" required>
+        <div class="err" id="errIdade">Informe uma idade entre 5 e 99 anos.</div>
+
+        <label for="telefone">WhatsApp com DDD</label>
+        <input type="tel" id="telefone" autocomplete="tel" inputmode="tel" placeholder="(21) 99999-9999" required>
+        <div class="err" id="errTel">Digite um número válido com DDD, ex.: (21) 99999-9999.</div>
+
+        <div class="notice-menor hidden" id="noticeMenor">
+          <strong>Menor de 18 anos?</strong> Sem problema! Só pedimos que o pai, a mãe ou o responsável legal preencha estes dados e autorize a participação.
+        </div>
+        <div class="check hidden" id="checkMenorWrap">
+          <input type="checkbox" id="checkMenor">
+          <span>Sou o responsável legal e autorizo a participação do menor e o uso dos dados informados.</span>
+        </div>
+        <div class="err" id="errMenor">É necessária a autorização do responsável legal.</div>
+
+        <div class="check">
+          <input type="checkbox" id="checkLgpd" required>
+          <span>Li e aceito os <a href="termos-lgpd.html" target="_blank" rel="noopener">Termos de Uso e Política de Privacidade (LGPD)</a>.</span>
+        </div>
+        <div class="err" id="errLgpd">É necessário aceitar os termos de privacidade.</div>
+
+        <div class="check">
+          <input type="checkbox" id="checkCookies" required>
+          <span>Li e aceito a <a href="politica-cookies.html" target="_blank" rel="noopener">Política de Cookies</a>.</span>
+        </div>
+        <div class="err" id="errCookies">É necessário aceitar a política de cookies.</div>
+
+        <button type="submit" class="btn" id="btnStart">Começar meu teste 🚀</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ========== TELA 2: TESTE ========== -->
+  <section id="screenTest" class="hidden">
+    <div class="progress-zone">
+      <div class="progress-label">
+        <span>Pergunta <span id="qNum">1</span> de 12</span>
+        <span class="monstro" id="monstroLabel">Aquecendo... 🔥</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFill"></div></div>
+    </div>
+    <div class="card">
+      <div class="q-text" id="qText"></div>
+      <div id="qOptions"></div>
+    </div>
+  </section>
+
+  <!-- ========== TELA 3: RESULTADO ========== -->
+  <section id="screenResult" class="hidden">
+    <div class="card result">
+      <div class="badge">
+        <span class="lvl" id="resLevel"></span>
+        <span class="score" id="resScore"></span>
+      </div>
+      <h2 id="resTitle"></h2>
+      <span class="curso" id="resCurso"></span>
+      <p id="resDesc"></p>
+      <a class="btn wa" id="btnWhats" href="#" target="_blank" rel="noopener">Agendar meu teste oral grátis 💬</a>
+      <a class="btn outline" href="https://www.instagram.com/cna.taquara" target="_blank" rel="noopener">Seguir @cna.taquara</a>
+      <div class="disclaimer">
+        Este resultado é uma indicação preliminar do seu nível. Para confirmar e te colocar na turma certa, nossa equipe faz um bate-papo rápido e gratuito (teste oral) na escola ou online. É rapidinho e sem compromisso. 😉
+      </div>
+    </div>
+  </section>
+
+</div></main>
+
+<footer>
+  CNA Taquara — Estrada da Soca, 129, Taquara, Rio de Janeiro/RJ<br>
+  <a href="termos-lgpd.html">Privacidade (LGPD)</a> · <a href="politica-cookies.html">Política de Cookies</a>
+</footer>
+
+<div id="cookieBanner" class="hidden">
+  <span>Usamos armazenamento local e cookies essenciais para o funcionamento desta página. Saiba mais na nossa <a href="politica-cookies.html" target="_blank" rel="noopener">Política de Cookies</a>.</span>
+  <button id="btnCookieOk">Ok, entendi</button>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ============================================================
+   CONFIGURAÇÃO — preencher antes de publicar
+   ============================================================ */
+const CONFIG = {
+  SUPABASE_URL: "COLE_AQUI_SUA_SUPABASE_URL",        // ex.: https://xxxx.supabase.co
+  SUPABASE_ANON_KEY: "COLE_AQUI_SUA_ANON_KEY",
+  WHATSAPP: "5521XXXXXXXXX",                          // [CONFIRMAR] número do WhatsApp da unidade
+  TABELA: "leads_teste_nivel"
+};
+
+/* ============ Supabase (degrada com elegância se não configurado) ============ */
+let sb = null;
+if (CONFIG.SUPABASE_URL.startsWith("https://")) {
+  sb = window.supabase.createClient(CONFIG.SUPABASE_URL, CONFIG.SUPABASE_ANON_KEY);
+} else {
+  console.warn("[CNA] Supabase não configurado — o teste roda, mas o lead não será salvo.");
+}
+
+/* ============ Banco de perguntas (12, em 4 blocos de dificuldade) ============ */
+const QUESTIONS = [
+  // Bloco 1 — Básico (CNA Fly)
+  { b:1, q:'— Hi! How are you?<br>— I <span class="blank">___</span> fine, thanks!', opts:["am","is","are","be"], c:"am" },
+  { b:1, q:'<span class="blank">___</span> you like sports?', opts:["Do","Does","Are","Is"], c:"Do" },
+  { b:1, q:'She <span class="blank">___</span> in Taquara, in Rio de Janeiro.', opts:["lives","live","living","is live"], c:"lives" },
+  // Bloco 2 — Intermediário 1 (CNA Progression)
+  { b:2, q:'What <span class="blank">___</span> you do last weekend?', opts:["did","do","does","done"], c:"did" },
+  { b:2, q:'I\'m <span class="blank">___</span> travel on my next vacation.', opts:["going to","go to","will to","going"], c:"going to" },
+  { b:2, q:'I always have a headache at the movies. What <span class="blank">___</span> I do?', opts:["should","would","am","did"], c:"should" },
+  // Bloco 3 — Intermediário 2 / Pré-avançado (CNA Expansion)
+  { b:3, q:'Have you ever <span class="blank">___</span> abroad?', opts:["been","be","went","going"], c:"been" },
+  { b:3, q:'What <span class="blank">___</span> you doing last Wednesday at 5 p.m.?', opts:["were","was","did","are"], c:"were" },
+  { b:3, q:'I <span class="blank">___</span> play with toy cars when I was a kid.', opts:["used to","use to","am used to","using"], c:"used to" },
+  // Bloco 4 — Avançado (CNA Gold / Platinum)
+  { b:4, q:'What would you do if you <span class="blank">___</span> the lottery?', opts:["won","win","will win","would win"], c:"won" },
+  { b:4, q:'If I had studied English as a kid, I <span class="blank">___</span> fluent by now.', opts:["would be","will be","am","was"], c:"would be" },
+  { b:4, q:'I wish I <span class="blank">___</span> more free time to practice.', opts:["had","have","would having","having"], c:"had" }
+];
+
+const MONSTRO_LABELS = ["Aquecendo... 🔥","Mandando bem! 💪","Modo monstrão ativado! 👹","Reta final, monstrão! 🏁"];
+
+const RESULTS = {
+  iniciante:   { lvl:"Iniciante",    curso:"CNA Fly 1",              title:"Hora perfeita pra <em>começar</em>!", desc:"Você está no ponto de partida — e isso é ótimo: no CNA você fala inglês desde a primeira aula, com método conversacional. Bora dar o primeiro passo?" },
+  basico:      { lvl:"Básico",       curso:"CNA Fly",                title:"Você já tem uma <em>base</em>!",      desc:"Você entende o essencial e já se vira nas apresentações. Com a abordagem comunicativa do CNA, essa base vira conversa de verdade rapidinho." },
+  intermediario:{ lvl:"Intermediário",curso:"CNA Progression",       title:"Você <em>monstrão</em> em construção!", desc:"Você já conta histórias, fala do passado e faz planos em inglês. O próximo nível é ganhar fluência e naturalidade — e é exatamente aí que a gente entra." },
+  preavancado: { lvl:"Pré-avançado", curso:"CNA Expansion",          title:"Quase <em>monstrão</em> total!",      desc:"Estruturas complexas já não te assustam. Agora é lapidar a fluência e ampliar vocabulário pra destravar de vez — inclusive de olho em certificações Cambridge." },
+  avancado:    { lvl:"Avançado",     curso:"CNA Gold / Platinum",    title:"Você <em>monstrão</em> no Inglês!",   desc:"Seu domínio das estruturas é de nível avançado. Que tal mirar em conversação avançada e certificações internacionais? Somos centro autorizado Cambridge." }
+};
+
+/* ============ Estado ============ */
+let leadId = null;
+let current = 0;
+let answers = [];
+let locked = false;
+
+/* ============ Utilidades ============ */
+const $ = id => document.getElementById(id);
+const digits = s => s.replace(/\D/g,"");
+
+function maskPhone(v){
+  const d = digits(v).slice(0,11);
+  if (d.length <= 2) return d.length ? "("+d : "";
+  if (d.length <= 6) return `(${d.slice(0,2)}) ${d.slice(2)}`;
+  if (d.length <= 10) return `(${d.slice(0,2)}) ${d.slice(2,6)}-${d.slice(6)}`;
+  return `(${d.slice(0,2)}) ${d.slice(2,7)}-${d.slice(7)}`;
+}
+function validPhone(v){
+  const d = digits(v);
+  if (d.length < 10 || d.length > 11) return false;
+  const ddd = parseInt(d.slice(0,2),10);
+  if (ddd < 11 || ddd > 99) return false;
+  if (d.length === 11 && d[2] !== "9") return false;
+  if (/^(\d)\1+$/.test(d.slice(2))) return false;
+  return true;
+}
+function getUtm(){
+  const p = new URLSearchParams(location.search);
+  return {
+    utm_source: p.get("utm_source"), utm_medium: p.get("utm_medium"),
+    utm_campaign: p.get("utm_campaign"), utm_content: p.get("utm_content")
+  };
+}
+function uuid(){
+  return (crypto.randomUUID) ? crypto.randomUUID() :
+    "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{
+      const r=Math.random()*16|0; return (c==="x"?r:(r&0x3|0x8)).toString(16);
+    });
+}
+
+/* ============ Formulário ============ */
+const telInput = $("telefone");
+telInput.addEventListener("input", e => { e.target.value = maskPhone(e.target.value); });
+
+$("idade").addEventListener("input", e => {
+  const menor = parseInt(e.target.value,10) < 18;
+  $("noticeMenor").classList.toggle("hidden", !menor);
+  $("checkMenorWrap").classList.toggle("hidden", !menor);
+});
+
+$("leadForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  let ok = true;
+  const nome = $("nome").value.trim();
+  const idade = parseInt($("idade").value,10);
+  const menor = idade < 18;
+
+  const setErr = (input, errId, bad) => {
+    $(errId).classList.toggle("show", bad);
+    if (input) input.classList.toggle("invalid", bad);
+    if (bad) ok = false;
+  };
+  setErr($("nome"),"errNome", nome.split(/\s+/).filter(Boolean).length < 2);
+  setErr($("idade"),"errIdade", !(idade >= 5 && idade <= 99));
+  setErr(telInput,"errTel", !validPhone(telInput.value));
+  setErr(null,"errMenor", menor && !$("checkMenor").checked);
+  setErr(null,"errLgpd", !$("checkLgpd").checked);
+  setErr(null,"errCookies", !$("checkCookies").checked);
+  if (!ok) return;
+
+  $("btnStart").disabled = true;
+  $("btnStart").textContent = "Preparando seu teste...";
+
+  leadId = uuid();
+  if (sb) {
+    try {
+      await sb.from(CONFIG.TABELA).insert({
+        id: leadId,
+        nome, idade,
+        telefone: digits(telInput.value),
+        aceite_lgpd: true,
+        aceite_cookies: true,
+        responsavel_autorizou: menor ? true : null,
+        ...getUtm()
+      });
+    } catch(err){ console.error("[CNA] Erro ao salvar lead:", err); }
+  }
+  startTest();
+});
+
+/* ============ Teste ============ */
+function startTest(){
+  $("screenStart").classList.add("hidden");
+  $("screenTest").classList.remove("hidden");
+  window.scrollTo({top:0});
+  renderQuestion();
+}
+
+function renderQuestion(){
+  locked = false;
+  const q = QUESTIONS[current];
+  $("qNum").textContent = current + 1;
+  $("monstroLabel").textContent = MONSTRO_LABELS[q.b - 1];
+  $("barFill").style.width = ((current) / QUESTIONS.length * 100) + "%";
+  $("qText").innerHTML = q.q;
+
+  const box = $("qOptions");
+  box.innerHTML = "";
+  const shuffled = [...q.opts].sort(() => Math.random() - .5);
+  shuffled.forEach((opt,i) => {
+    const btn = document.createElement("button");
+    btn.className = "opt";
+    btn.innerHTML = `<span class="letter">${"ABCD"[i]}</span><span>${opt}</span>`;
+    btn.addEventListener("click", () => answer(btn, opt, q));
+    box.appendChild(btn);
+  });
+}
+
+function answer(btn, opt, q){
+  if (locked) return;
+  locked = true;
+  const correct = opt === q.c;
+  answers.push({ n: current+1, bloco: q.b, resposta: opt, correta: correct });
+  // desabilita tudo; marca a certa em verde e, se errou, a escolhida em vermelho
+  document.querySelectorAll(".opt").forEach(b => {
+    b.disabled = true;
+    const val = b.querySelectorAll("span")[1].textContent;
+    if (val === q.c) b.classList.add("correct");
+  });
+  if (!correct) btn.classList.add("wrong");
+
+  $("barFill").style.width = ((current+1) / QUESTIONS.length * 100) + "%";
+  setTimeout(() => {
+    current++;
+    (current < QUESTIONS.length) ? renderQuestion() : showResult();
+  }, correct ? 550 : 950);
+}
+
+/* ============ Resultado ============ */
+function computeLevel(){
+  const blockScore = b => answers.filter(a => a.bloco === b && a.correta).length;
+  const b1 = blockScore(1), b2 = blockScore(2), b3 = blockScore(3), b4 = blockScore(4);
+  if (b1 < 2) return "iniciante";
+  if (b2 < 2) return "basico";
+  if (b3 < 2) return "intermediario";
+  if (b4 < 2) return "preavancado";
+  return "avancado";
+}
+
+async function showResult(){
+  const key = computeLevel();
+  const r = RESULTS[key];
+  const acertos = answers.filter(a => a.correta).length;
+
+  $("screenTest").classList.add("hidden");
+  $("screenResult").classList.remove("hidden");
+  window.scrollTo({top:0});
+
+  $("resLevel").textContent = r.lvl;
+  $("resScore").textContent = `${acertos}/12 acertos`;
+  $("resTitle").innerHTML = r.title;
+  $("resCurso").textContent = "Indicação: " + r.curso;
+  $("resDesc").textContent = r.desc;
+
+  const msg = encodeURIComponent(`Olá! Fiz o teste de nível online do CNA Taquara e meu resultado foi ${r.lvl} (${acertos}/12). Quero agendar meu teste oral gratuito! 😄`);
+  $("btnWhats").href = `https://wa.me/${CONFIG.WHATSAPP}?text=${msg}`;
+
+  if (sb && leadId) {
+    try {
+      await sb.from(CONFIG.TABELA).update({
+        resultado_nivel: r.lvl,
+        curso_recomendado: r.curso,
+        acertos, total_perguntas: QUESTIONS.length,
+        respostas: answers,
+        concluido: true,
+        concluido_em: new Date().toISOString()
+      }).eq("id", leadId);
+    } catch(err){ console.error("[CNA] Erro ao salvar resultado:", err); }
+  }
+}
+
+/* ============ Banner de cookies ============ */
+try {
+  if (!localStorage.getItem("cna_cookies_ok")) $("cookieBanner").classList.remove("hidden");
+  $("btnCookieOk").addEventListener("click", () => {
+    localStorage.setItem("cna_cookies_ok","1");
+    $("cookieBanner").classList.add("hidden");
+  });
+} catch(e){ /* navegação privada sem storage: segue sem banner persistente */ }
+</script>
+</body>
+</html>
