@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Teste de Nível de Inglês Grátis | CNA Taquara</title>
-<meta name="description" content="Descubra seu nível de inglês em 3 minutos. Teste rápido e gratuito do CNA Taquara, na Zona Oeste do Rio. Você monstrão no Inglês!">
+<meta name="description" content="Descubra como está seu inglês em poucos minutos. Teste rápido e gratuito do CNA Taquara, na Zona Oeste do Rio. Você monstrão no Inglês!">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -66,16 +66,16 @@ main{flex:1;display:flex;justify-content:center;padding:24px 16px 48px}
 .hero p{color:var(--gray);margin-top:10px;font-size:.95rem}
 .hero .meta{
   display:flex;justify-content:center;gap:18px;margin-top:16px;
-  font-size:.8rem;color:var(--blue);font-weight:600;
+  font-size:.8rem;color:var(--blue);font-weight:600;flex-wrap:wrap;
 }
 /* ===== FORM ===== */
 label{display:block;font-size:.82rem;font-weight:600;margin:16px 0 6px;color:var(--ink)}
-input[type=text],input[type=tel],input[type=number]{
+input[type=text],input[type=tel],input[type=number],textarea{
   width:100%;padding:13px 14px;font-size:1rem;font-family:inherit;
   border:1.5px solid var(--gray-line);border-radius:10px;background:var(--white);
   transition:border-color .15s;
 }
-input:focus{outline:none;border-color:var(--blue)}
+input:focus,textarea:focus{outline:none;border-color:var(--blue)}
 input.invalid{border-color:var(--red)}
 .err{color:var(--red-dark);font-size:.76rem;margin-top:5px;display:none}
 .err.show{display:block}
@@ -90,6 +90,7 @@ input.invalid{border-color:var(--red)}
   display:block;width:100%;padding:16px;margin-top:22px;
   background:var(--red);color:var(--white);border:none;border-radius:12px;
   font-family:inherit;font-size:1.05rem;font-weight:700;cursor:pointer;
+  text-align:center;text-decoration:none;
   transition:background .15s,transform .1s;
 }
 .btn:hover{background:var(--red-dark)}
@@ -124,6 +125,26 @@ input.invalid{border-color:var(--red)}
 .opt.wrong{border-color:var(--red);background:#FDEEF1}
 .opt.wrong .letter{background:var(--red);color:var(--white)}
 .opt:disabled{cursor:default}
+/* ===== CONVERSAÇÃO (perguntas abertas) ===== */
+.open-hint{font-size:.85rem;color:var(--gray);margin:-10px 0 18px;line-height:1.5}
+.open-q{font-size:1.15rem;font-weight:700;color:var(--blue);line-height:1.4;margin-bottom:4px}
+.open-q-pt{font-size:.8rem;color:var(--gray);margin-bottom:16px}
+textarea{min-height:110px;resize:vertical;line-height:1.5}
+.voice-row{display:flex;gap:10px;margin-top:12px}
+.btn-mic{
+  flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:13px;background:var(--blue);color:var(--white);
+  border:none;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;
+  transition:background .15s;
+}
+.btn-mic:hover{background:#12306B}
+.btn-mic.rec{background:var(--red);animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(230,20,60,.45)}50%{box-shadow:0 0 0 10px rgba(230,20,60,0)}}
+.skip-link{
+  display:block;text-align:center;margin-top:16px;
+  font-size:.8rem;color:var(--gray);text-decoration:underline;cursor:pointer;
+  background:none;border:none;font-family:inherit;width:100%;
+}
 /* ===== RESULT ===== */
 .result{text-align:center}
 .result .badge{
@@ -131,15 +152,11 @@ input.invalid{border-color:var(--red)}
   width:150px;height:150px;border-radius:50%;
   background:var(--blue);color:var(--white);margin-bottom:18px;
 }
-.result .badge .lvl{font-size:1.3rem;font-weight:800;line-height:1.1;padding:0 12px}
-.result .badge .score{font-size:.75rem;opacity:.85;margin-top:4px}
+.result .badge .score-big{font-size:2.4rem;font-weight:800;line-height:1}
+.result .badge .score-sub{font-size:.72rem;opacity:.85;margin-top:6px;letter-spacing:.05em;text-transform:uppercase}
 .result h2{font-size:1.5rem;font-weight:800}
 .result h2 em{font-style:normal;color:var(--red)}
-.result .curso{
-  display:inline-block;background:var(--red);color:var(--white);
-  font-weight:700;font-size:.85rem;padding:7px 16px;border-radius:999px;margin:12px 0;
-}
-.result p{color:var(--gray);font-size:.92rem;line-height:1.55}
+.result p{color:var(--gray);font-size:.92rem;line-height:1.55;margin-top:10px}
 .result .disclaimer{
   background:var(--surface);border-radius:10px;padding:12px 14px;
   font-size:.78rem;color:var(--gray);margin-top:18px;line-height:1.5;text-align:left;
@@ -166,7 +183,7 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
   .card{padding:36px 34px}
 }
 @media (prefers-reduced-motion:reduce){
-  *{transition:none!important}
+  *{transition:none!important;animation:none!important}
 }
 </style>
 </head>
@@ -181,10 +198,10 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
   <!-- ========== TELA 1: HERO + FORM ========== -->
   <section id="screenStart">
     <div class="hero">
-      <span class="tag">Teste de nível grátis</span>
+      <span class="tag">Teste de inglês grátis</span>
       <h1>Você <em>monstrão</em> no Inglês?</h1>
-      <p>Responda 12 perguntas rápidas e descubra seu nível. No final, a gente te indica o curso certo pra você aqui na Taquara.</p>
-      <div class="meta"><span>⏱ 3 minutos</span><span>✔ 100% gratuito</span><span>📱 Resultado na hora</span></div>
+      <p>Responda 12 perguntas rápidas e mostre seu inglês na prática. No final, nossa equipe entra em contato com seu resultado completo.</p>
+      <div class="meta"><span>⏱ 4 minutos</span><span>✔ 100% gratuito</span><span>🎤 Com etapa de conversação</span></div>
     </div>
 
     <div class="card">
@@ -227,7 +244,7 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
     </div>
   </section>
 
-  <!-- ========== TELA 2: TESTE ========== -->
+  <!-- ========== TELA 2: TESTE OBJETIVO ========== -->
   <section id="screenTest" class="hidden">
     <div class="progress-zone">
       <div class="progress-label">
@@ -242,20 +259,43 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
     </div>
   </section>
 
-  <!-- ========== TELA 3: RESULTADO ========== -->
+  <!-- ========== TELA 3: CONVERSAÇÃO (aberta) ========== -->
+  <section id="screenOpen" class="hidden">
+    <div class="progress-zone">
+      <div class="progress-label">
+        <span>Etapa final: conversação <span id="openNum">1</span> de 2</span>
+        <span class="monstro">Mostra teu inglês! 🎤</span>
+      </div>
+      <div class="bar"><div class="bar-fill" id="barFillOpen" style="width:50%"></div></div>
+    </div>
+    <div class="card">
+      <p class="open-hint">Responda <strong>em inglês</strong>, do seu jeito. Pode <strong>falar</strong> no microfone ou <strong>escrever</strong> — vale errar, o que importa é se comunicar! 😉</p>
+      <div class="open-q" id="openQ"></div>
+      <div class="open-q-pt" id="openQPt"></div>
+      <textarea id="openAnswer" placeholder="Your answer in English..." maxlength="600"></textarea>
+      <div class="voice-row">
+        <button type="button" class="btn-mic" id="btnMic">🎤 Responder falando</button>
+      </div>
+      <div class="err" id="errOpen">Escreva ou fale sua resposta antes de enviar (ou pule esta etapa).</div>
+      <button type="button" class="btn" id="btnOpenNext">Enviar resposta ✅</button>
+      <button type="button" class="skip-link" id="btnSkipOpen">Prefiro pular a etapa de conversação</button>
+    </div>
+  </section>
+
+  <!-- ========== TELA 4: RESULTADO ========== -->
   <section id="screenResult" class="hidden">
     <div class="card result">
       <div class="badge">
-        <span class="lvl" id="resLevel"></span>
-        <span class="score" id="resScore"></span>
+        <span class="score-big" id="resScore"></span>
+        <span class="score-sub">acertos</span>
       </div>
-      <h2 id="resTitle"></h2>
-      <span class="curso" id="resCurso"></span>
+      <h2 id="resTitle">Parabéns! 🎉</h2>
       <p id="resDesc"></p>
-      <a class="btn wa" id="btnWhats" href="#" target="_blank" rel="noopener">Agendar meu teste oral grátis 💬</a>
+      <p><strong>Quer saber seu resultado completo e qual turma combina com você?</strong> Nossa equipe já recebeu suas respostas — é só chamar. 👇</p>
+      <a class="btn wa" id="btnWhats" href="#" target="_blank" rel="noopener">Quero meu resultado completo 💬</a>
       <a class="btn outline" href="https://www.instagram.com/cna.taquara" target="_blank" rel="noopener">Seguir @cna.taquara</a>
       <div class="disclaimer">
-        Este resultado é uma indicação preliminar do seu nível. Para confirmar e te colocar na turma certa, nossa equipe faz um bate-papo rápido e gratuito (teste oral) na escola ou online. É rapidinho e sem compromisso. 😉
+        Sua análise completa é feita pela nossa equipe pedagógica, que entra em contato pelo WhatsApp informado. Se preferir, chame a gente primeiro pelo botão acima. O teste oral de confirmação é gratuito e sem compromisso. 😉
       </div>
     </div>
   </section>
@@ -280,8 +320,9 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
 const CONFIG = {
   SUPABASE_URL: "https://rfjtgdeavtegpzaercee.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJmanRnZGVhdnRlZ3B6YWVyY2VlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc2ODYzMjIsImV4cCI6MjA5MzI2MjMyMn0.tokTWUx6zlWgCu0_Mijk8DPN_MGrYAtLr7PR-0dZadc",
-  WHATSAPP: "5521XXXXXXXXX",                          // [CONFIRMAR] número do WhatsApp da unidade
-  TABELA: "leads_teste_nivel"
+  WHATSAPP: "5521977193899",                          // WhatsApp da unidade
+  TABELA: "leads_teste_nivel",
+  EDGE_FUNCTION: "avaliar-respostas"                  // função que avalia a conversação com IA
 };
 
 /* ============ Supabase (degrada com elegância se não configurado) ============ */
@@ -292,21 +333,21 @@ if (CONFIG.SUPABASE_URL.startsWith("https://")) {
   console.warn("[CNA] Supabase não configurado — o teste roda, mas o lead não será salvo.");
 }
 
-/* ============ Banco de perguntas (12, em 4 blocos de dificuldade) ============ */
+/* ============ Perguntas objetivas (12, em 4 blocos de dificuldade) ============ */
 const QUESTIONS = [
-  // Bloco 1 — Básico (CNA Fly)
+  // Bloco 1 — Básico
   { b:1, q:'— Hi! How are you?<br>— I <span class="blank">___</span> fine, thanks!', opts:["am","is","are","be"], c:"am" },
   { b:1, q:'<span class="blank">___</span> you like sports?', opts:["Do","Does","Are","Is"], c:"Do" },
   { b:1, q:'She <span class="blank">___</span> in Taquara, in Rio de Janeiro.', opts:["lives","live","living","is live"], c:"lives" },
-  // Bloco 2 — Intermediário 1 (CNA Progression)
+  // Bloco 2 — Intermediário 1
   { b:2, q:'What <span class="blank">___</span> you do last weekend?', opts:["did","do","does","done"], c:"did" },
   { b:2, q:'I\'m <span class="blank">___</span> travel on my next vacation.', opts:["going to","go to","will to","going"], c:"going to" },
   { b:2, q:'I always have a headache at the movies. What <span class="blank">___</span> I do?', opts:["should","would","am","did"], c:"should" },
-  // Bloco 3 — Intermediário 2 / Pré-avançado (CNA Expansion)
+  // Bloco 3 — Intermediário 2 / Pré-avançado
   { b:3, q:'Have you ever <span class="blank">___</span> abroad?', opts:["been","be","went","going"], c:"been" },
   { b:3, q:'What <span class="blank">___</span> you doing last Wednesday at 5 p.m.?', opts:["were","was","did","are"], c:"were" },
   { b:3, q:'I <span class="blank">___</span> play with toy cars when I was a kid.', opts:["used to","use to","am used to","using"], c:"used to" },
-  // Bloco 4 — Avançado (CNA Gold / Platinum)
+  // Bloco 4 — Avançado
   { b:4, q:'What would you do if you <span class="blank">___</span> the lottery?', opts:["won","win","will win","would win"], c:"won" },
   { b:4, q:'If I had studied English as a kid, I <span class="blank">___</span> fluent by now.', opts:["would be","will be","am","was"], c:"would be" },
   { b:4, q:'I wish I <span class="blank">___</span> more free time to practice.', opts:["had","have","would having","having"], c:"had" }
@@ -314,19 +355,23 @@ const QUESTIONS = [
 
 const MONSTRO_LABELS = ["Aquecendo... 🔥","Mandando bem! 💪","Modo monstrão ativado! 👹","Reta final, monstrão! 🏁"];
 
-const RESULTS = {
-  iniciante:   { lvl:"Iniciante",    curso:"CNA Fly 1",              title:"Hora perfeita pra <em>começar</em>!", desc:"Você está no ponto de partida — e isso é ótimo: no CNA você fala inglês desde a primeira aula, com método conversacional. Bora dar o primeiro passo?" },
-  basico:      { lvl:"Básico",       curso:"CNA Fly",                title:"Você já tem uma <em>base</em>!",      desc:"Você entende o essencial e já se vira nas apresentações. Com a abordagem comunicativa do CNA, essa base vira conversa de verdade rapidinho." },
-  intermediario:{ lvl:"Intermediário",curso:"CNA Progression",       title:"Você <em>monstrão</em> em construção!", desc:"Você já conta histórias, fala do passado e faz planos em inglês. O próximo nível é ganhar fluência e naturalidade — e é exatamente aí que a gente entra." },
-  preavancado: { lvl:"Pré-avançado", curso:"CNA Expansion",          title:"Quase <em>monstrão</em> total!",      desc:"Estruturas complexas já não te assustam. Agora é lapidar a fluência e ampliar vocabulário pra destravar de vez — inclusive de olho em certificações Cambridge." },
-  avancado:    { lvl:"Avançado",     curso:"CNA Gold / Platinum",    title:"Você <em>monstrão</em> no Inglês!",   desc:"Seu domínio das estruturas é de nível avançado. Que tal mirar em conversação avançada e certificações internacionais? Somos centro autorizado Cambridge." }
-};
+/* ============ Perguntas abertas (conversação) ============ */
+const OPEN_QUESTIONS = [
+  { q:"Tell me about yourself and your family.", pt:"(Fale sobre você e sua família)" },
+  { q:"Why do you want to improve your English? What are your plans?", pt:"(Por que você quer melhorar seu inglês? Quais são seus planos?)" }
+];
 
 /* ============ Estado ============ */
 let leadId = null;
+let leadNome = "";
 let current = 0;
 let answers = [];
 let locked = false;
+let openIdx = 0;
+let openAnswers = [];
+let openMode = "escrito";
+let recognition = null;
+let recording = false;
 
 /* ============ Utilidades ============ */
 const $ = id => document.getElementById(id);
@@ -360,6 +405,11 @@ function uuid(){
     "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,c=>{
       const r=Math.random()*16|0; return (c==="x"?r:(r&0x3|0x8)).toString(16);
     });
+}
+function show(id){
+  ["screenStart","screenTest","screenOpen","screenResult"].forEach(s => $(s).classList.add("hidden"));
+  $(id).classList.remove("hidden");
+  window.scrollTo({top:0});
 }
 
 /* ============ Formulário ============ */
@@ -396,6 +446,7 @@ $("leadForm").addEventListener("submit", async e => {
   $("btnStart").textContent = "Preparando seu teste...";
 
   leadId = uuid();
+  leadNome = nome.split(/\s+/)[0];
   if (sb) {
     try {
       await sb.from(CONFIG.TABELA).insert({
@@ -409,23 +460,17 @@ $("leadForm").addEventListener("submit", async e => {
       });
     } catch(err){ console.error("[CNA] Erro ao salvar lead:", err); }
   }
-  startTest();
+  show("screenTest");
+  renderQuestion();
 });
 
-/* ============ Teste ============ */
-function startTest(){
-  $("screenStart").classList.add("hidden");
-  $("screenTest").classList.remove("hidden");
-  window.scrollTo({top:0});
-  renderQuestion();
-}
-
+/* ============ Teste objetivo ============ */
 function renderQuestion(){
   locked = false;
   const q = QUESTIONS[current];
   $("qNum").textContent = current + 1;
   $("monstroLabel").textContent = MONSTRO_LABELS[q.b - 1];
-  $("barFill").style.width = ((current) / QUESTIONS.length * 100) + "%";
+  $("barFill").style.width = (current / QUESTIONS.length * 100) + "%";
   $("qText").innerHTML = q.q;
 
   const box = $("qOptions");
@@ -445,7 +490,6 @@ function answer(btn, opt, q){
   locked = true;
   const correct = opt === q.c;
   answers.push({ n: current+1, bloco: q.b, resposta: opt, correta: correct });
-  // desabilita tudo; marca a certa em verde e, se errou, a escolhida em vermelho
   document.querySelectorAll(".opt").forEach(b => {
     b.disabled = true;
     const val = b.querySelectorAll("span")[1].textContent;
@@ -456,50 +500,153 @@ function answer(btn, opt, q){
   $("barFill").style.width = ((current+1) / QUESTIONS.length * 100) + "%";
   setTimeout(() => {
     current++;
-    (current < QUESTIONS.length) ? renderQuestion() : showResult();
+    (current < QUESTIONS.length) ? renderQuestion() : startOpenStage();
   }, correct ? 550 : 950);
 }
 
-/* ============ Resultado ============ */
-function computeLevel(){
-  const blockScore = b => answers.filter(a => a.bloco === b && a.correta).length;
-  const b1 = blockScore(1), b2 = blockScore(2), b3 = blockScore(3), b4 = blockScore(4);
-  if (b1 < 2) return "iniciante";
-  if (b2 < 2) return "basico";
-  if (b3 < 2) return "intermediario";
-  if (b4 < 2) return "preavancado";
-  return "avancado";
+/* ============ Etapa de conversação ============ */
+function startOpenStage(){
+  show("screenOpen");
+  renderOpenQuestion();
+}
+function renderOpenQuestion(){
+  const oq = OPEN_QUESTIONS[openIdx];
+  $("openNum").textContent = openIdx + 1;
+  $("barFillOpen").style.width = ((openIdx) / OPEN_QUESTIONS.length * 100 || 8) + "%";
+  $("openQ").textContent = oq.q;
+  $("openQPt").textContent = oq.pt;
+  $("openAnswer").value = "";
+  $("errOpen").classList.remove("show");
+  openMode = "escrito";
+  stopRecognition();
+  setupSpeech();
 }
 
-async function showResult(){
-  const key = computeLevel();
-  const r = RESULTS[key];
+/* --- Reconhecimento de voz (Web Speech API, roda no navegador) --- */
+function setupSpeech(){
+  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const btn = $("btnMic");
+  if (!SR) {
+    btn.classList.add("hidden");   // navegador sem suporte: só escrita
+    return;
+  }
+  btn.classList.remove("hidden");
+  btn.textContent = "🎤 Responder falando";
+  btn.classList.remove("rec");
+  btn.onclick = () => recording ? stopRecognition() : startRecognition(SR, btn);
+}
+function startRecognition(SR, btn){
+  recognition = new SR();
+  recognition.lang = "en-US";
+  recognition.continuous = true;
+  recognition.interimResults = true;
+  let finalText = $("openAnswer").value.trim();
+
+  recognition.onresult = e => {
+    let interim = "";
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      const t = e.results[i][0].transcript;
+      if (e.results[i].isFinal) finalText = (finalText + " " + t).trim();
+      else interim += t;
+    }
+    $("openAnswer").value = (finalText + " " + interim).trim();
+    if (finalText) openMode = "falado";
+  };
+  recognition.onerror = ev => {
+    stopRecognition();
+    if (ev.error === "not-allowed") {
+      alert("Precisamos da permissão do microfone para você responder falando. Você também pode escrever a resposta. 😉");
+    }
+  };
+  recognition.onend = () => {
+    recording = false;
+    btn.textContent = "🎤 Responder falando";
+    btn.classList.remove("rec");
+  };
+
+  recording = true;
+  btn.textContent = "⏹ Parar gravação";
+  btn.classList.add("rec");
+  recognition.start();
+}
+function stopRecognition(){
+  if (recognition) { try { recognition.stop(); } catch(e){} recognition = null; }
+  recording = false;
+}
+
+$("btnOpenNext").addEventListener("click", () => {
+  const txt = $("openAnswer").value.trim();
+  if (txt.length < 5) { $("errOpen").classList.add("show"); return; }
+  stopRecognition();
+  openAnswers.push({ pergunta: OPEN_QUESTIONS[openIdx].q, resposta: txt, modo: openMode });
+  openIdx++;
+  (openIdx < OPEN_QUESTIONS.length) ? renderOpenQuestion() : finishTest();
+});
+
+$("btnSkipOpen").addEventListener("click", () => {
+  stopRecognition();
+  finishTest();
+});
+
+/* ============ Fechamento e resultado ============ */
+function computeLevelInternal(){
+  const blockScore = b => answers.filter(a => a.bloco === b && a.correta).length;
+  if (blockScore(1) < 2) return "Iniciante";
+  if (blockScore(2) < 2) return "Básico";
+  if (blockScore(3) < 2) return "Intermediário";
+  if (blockScore(4) < 2) return "Pré-avançado";
+  return "Avançado";
+}
+
+async function finishTest(){
   const acertos = answers.filter(a => a.correta).length;
+  const nivelInterno = computeLevelInternal();   // salvo no banco, NUNCA exibido ao aluno
 
-  $("screenTest").classList.add("hidden");
-  $("screenResult").classList.remove("hidden");
-  window.scrollTo({top:0});
+  // ---- Tela de resultado (sem nível!) ----
+  show("screenResult");
+  $("resScore").textContent = `${acertos}/12`;
+  $("resTitle").innerHTML = `Parabéns, <em>${leadNome || "monstrão"}</em>! 🎉`;
+  const fezConversa = openAnswers.length > 0;
+  $("resDesc").textContent = fezConversa
+    ? `Você acertou ${acertos} de 12 perguntas objetivas e ainda encarou a etapa de conversação — mandou muito bem!`
+    : `Você acertou ${acertos} de 12 perguntas objetivas — mandou bem demais!`;
 
-  $("resLevel").textContent = r.lvl;
-  $("resScore").textContent = `${acertos}/12 acertos`;
-  $("resTitle").innerHTML = r.title;
-  $("resCurso").textContent = "Indicação: " + r.curso;
-  $("resDesc").textContent = r.desc;
-
-  const msg = encodeURIComponent(`Olá! Fiz o teste de nível online do CNA Taquara e meu resultado foi ${r.lvl} (${acertos}/12). Quero agendar meu teste oral gratuito! 😄`);
+  const msg = encodeURIComponent(`Olá! Acabei de fazer o teste de nível online do CNA Taquara e acertei ${acertos} de 12. Quero saber meu resultado completo! 😄`);
   $("btnWhats").href = `https://wa.me/${CONFIG.WHATSAPP}?text=${msg}`;
 
+  // ---- Persistência (não bloqueia a tela) ----
   if (sb && leadId) {
     try {
       await sb.from(CONFIG.TABELA).update({
-        resultado_nivel: r.lvl,
-        curso_recomendado: r.curso,
+        resultado_nivel: nivelInterno,
         acertos, total_perguntas: QUESTIONS.length,
         respostas: answers,
+        respostas_abertas: openAnswers.length ? openAnswers : null,
         concluido: true,
         concluido_em: new Date().toISOString()
       }).eq("id", leadId);
     } catch(err){ console.error("[CNA] Erro ao salvar resultado:", err); }
+
+    // Avaliação por IA das respostas abertas (fire-and-forget)
+    if (openAnswers.length) {
+      try {
+        sb.functions.invoke(CONFIG.EDGE_FUNCTION, {
+          body: {
+            lead_id: leadId,
+            respostas_abertas: openAnswers,
+            mcq: {
+              acertos,
+              blocos: {
+                b1: answers.filter(a=>a.bloco===1&&a.correta).length,
+                b2: answers.filter(a=>a.bloco===2&&a.correta).length,
+                b3: answers.filter(a=>a.bloco===3&&a.correta).length,
+                b4: answers.filter(a=>a.bloco===4&&a.correta).length
+              }
+            }
+          }
+        }).catch(err => console.warn("[CNA] Avaliação IA indisponível:", err));
+      } catch(err){ console.warn("[CNA] Avaliação IA indisponível:", err); }
+    }
   }
 }
 
