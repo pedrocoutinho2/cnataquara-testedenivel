@@ -341,7 +341,7 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
       <p id="resDesc"></p>
       <p><strong>Quer saber seu resultado completo e qual turma combina com você?</strong> Nossa equipe já recebeu suas respostas — é só chamar. 👇</p>
       <a class="btn wa" id="btnWhats" href="#" target="_blank" rel="noopener">Quero meu resultado completo 💬</a>
-      <a class="btn outline" href="https://www.instagram.com/cna.taquara" target="_blank" rel="noopener">Seguir @cna.taquara</a>
+      <a class="btn outline" href="https://www.instagram.com/cnataquararj" target="_blank" rel="noopener">Seguir @cnataquararj</a>
       <div class="disclaimer">
         Sua análise completa é feita pela nossa equipe pedagógica, que entra em contato pelo WhatsApp informado. Se preferir, chame a gente primeiro pelo botão acima. O teste oral de confirmação é gratuito e sem compromisso. 😉
       </div>
@@ -382,13 +382,13 @@ if (CONFIG.SUPABASE_URL.startsWith("https://")) {
 }
 
 /* ============================================================
-   Banco de perguntas objetivas — 8 por bloco de dificuldade.
-   A cada tentativa, o teste sorteia 3 de cada bloco (12 no total),
-   então dificilmente duas pessoas fazem o mesmo teste.
-   Estruturas baseadas nos Oral Placement Tests oficiais CNA.
+   Banco de perguntas objetivas — 20 por bloco de dificuldade
+   (80 no total). A cada tentativa, sorteia 3 de cada bloco (12).
+   Com 20 por bloco, a chance de repetir questões entre duas
+   tentativas é baixa. Estruturas baseadas nos Placement Tests CNA.
    ============================================================ */
 const BANK = [
-  // Bloco 1 — Básico (verbo to be, do/does, presente simples, can, there is)
+  // ===== Bloco 1 — Básico (to be, do/does, presente simples, can, there is, plurais, possessivos) =====
   { b:1, q:'— Hi! How are you?<br>— I <span class="blank">___</span> fine, thanks!', opts:["am","is","are","be"], c:"am" },
   { b:1, q:'<span class="blank">___</span> you like sports?', opts:["Do","Does","Are","Is"], c:"Do" },
   { b:1, q:'She <span class="blank">___</span> in Taquara, in Rio de Janeiro.', opts:["lives","live","living","is live"], c:"lives" },
@@ -397,7 +397,19 @@ const BANK = [
   { b:1, q:'How <span class="blank">___</span> are you? — I\'m 25.', opts:["old","age","years","many"], c:"old" },
   { b:1, q:'Where <span class="blank">___</span> you from?', opts:["are","is","do","be"], c:"are" },
   { b:1, q:'I <span class="blank">___</span> play the guitar, but I can sing!', opts:["can't","don't can","not can","doesn't"], c:"can't" },
-  // Bloco 2 — Intermediário 1 (passado simples, going to, should, comparativo)
+  { b:1, q:'My father <span class="blank">___</span> like coffee.', opts:["doesn't","don't","isn't","not"], c:"doesn't" },
+  { b:1, q:'There are three <span class="blank">___</span> on the table.', opts:["books","book","bookes","a book"], c:"books" },
+  { b:1, q:'What time <span class="blank">___</span> it? — It\'s 3 o\'clock.', opts:["is","are","do","does"], c:"is" },
+  { b:1, q:'We <span class="blank">___</span> students at CNA.', opts:["are","is","am","be"], c:"are" },
+  { b:1, q:'<span class="blank">___</span> is your favorite color?', opts:["What","Who","Where","When"], c:"What" },
+  { b:1, q:'I have two dogs. <span class="blank">___</span> are very friendly.', opts:["They","It","He","We"], c:"They" },
+  { b:1, q:'She <span class="blank">___</span> to school by bus every day.', opts:["goes","go","going","gos"], c:"goes" },
+  { b:1, q:'<span class="blank">___</span> your parents work here?', opts:["Do","Does","Is","Are"], c:"Do" },
+  { b:1, q:'This is <span class="blank">___</span> apple.', opts:["an","a","the a","one"], c:"an" },
+  { b:1, q:'I like pizza, and my brother likes <span class="blank">___</span> too.', opts:["it","its","him","them"], c:"it" },
+  { b:1, q:'They <span class="blank">___</span> at home right now.', opts:["are","is","be","am"], c:"are" },
+  { b:1, q:'Can you <span class="blank">___</span> English?', opts:["speak","speaks","speaking","spoke"], c:"speak" },
+  // ===== Bloco 2 — Intermediário 1 (passado simples, going to, should, comparativo, presente contínuo, much/many) =====
   { b:2, q:'What <span class="blank">___</span> you do last weekend?', opts:["did","do","does","done"], c:"did" },
   { b:2, q:'I\'m <span class="blank">___</span> travel on my next vacation.', opts:["going to","go to","will to","going"], c:"going to" },
   { b:2, q:'I always have a headache at the movies. What <span class="blank">___</span> I do?', opts:["should","would","am","did"], c:"should" },
@@ -406,7 +418,19 @@ const BANK = [
   { b:2, q:'Look outside! It <span class="blank">___</span> right now.', opts:["is raining","rains","rain","rained"], c:"is raining" },
   { b:2, q:'How <span class="blank">___</span> is a movie ticket in your city?', opts:["much","many","often","long"], c:"much" },
   { b:2, q:'What are you <span class="blank">___</span> to do next weekend?', opts:["going","go","will","want"], c:"going" },
-  // Bloco 3 — Intermediário 2 / Pré-avançado (present perfect, past continuous, used to)
+  { b:2, q:'She didn\'t <span class="blank">___</span> to the party last night.', opts:["come","came","comes","coming"], c:"come" },
+  { b:2, q:'This is the <span class="blank">___</span> restaurant in town.', opts:["best","better","goodest","most good"], c:"best" },
+  { b:2, q:'How <span class="blank">___</span> brothers do you have?', opts:["many","much","old","long"], c:"many" },
+  { b:2, q:'They <span class="blank">___</span> TV when I called.', opts:["were watching","watched","are watching","watch"], c:"were watching" },
+  { b:2, q:'You <span class="blank">___</span> drink water when it\'s hot.', opts:["should","would","did","are"], c:"should" },
+  { b:2, q:'I <span class="blank">___</span> a great movie yesterday.', opts:["saw","see","seen","did see"], c:"saw" },
+  { b:2, q:'We are going to <span class="blank">___</span> a house next year.', opts:["buy","bought","buying","buys"], c:"buy" },
+  { b:2, q:'My city is <span class="blank">___</span> than yours.', opts:["bigger","more big","biggest","big"], c:"bigger" },
+  { b:2, q:'What <span class="blank">___</span> you doing at 8 p.m. yesterday?', opts:["were","was","are","did"], c:"were" },
+  { b:2, q:'There isn\'t <span class="blank">___</span> milk in the fridge.', opts:["much","many","a lot","some"], c:"much" },
+  { b:2, q:'Did she <span class="blank">___</span> her homework?', opts:["do","did","does","done"], c:"do" },
+  { b:2, q:'I think it <span class="blank">___</span> rain tomorrow.', opts:["will","did","was","is"], c:"will" },
+  // ===== Bloco 3 — Intermediário 2 / Pré-avançado (present perfect, past continuous, used to, question tags, since/for) =====
   { b:3, q:'Have you ever <span class="blank">___</span> abroad?', opts:["been","be","went","going"], c:"been" },
   { b:3, q:'What <span class="blank">___</span> you doing last Wednesday at 5 p.m.?', opts:["were","was","did","are"], c:"were" },
   { b:3, q:'I <span class="blank">___</span> play with toy cars when I was a kid.', opts:["used to","use to","am used to","using"], c:"used to" },
@@ -415,7 +439,19 @@ const BANK = [
   { b:3, q:'I haven\'t checked my e-mails <span class="blank">___</span>.', opts:["yet","already","still","never"], c:"yet" },
   { b:3, q:'She has <span class="blank">___</span> in Rio since 2020.', opts:["lived","living","live","lives"], c:"lived" },
   { b:3, q:'We were having dinner <span class="blank">___</span> the phone rang.', opts:["when","while","during","for"], c:"when" },
-  // Bloco 4 — Avançado (condicionais, wish, past perfect, voz passiva, reported speech)
+  { b:3, q:'I\'ve known her <span class="blank">___</span> ten years.', opts:["for","since","ago","during"], c:"for" },
+  { b:3, q:'He\'s already <span class="blank">___</span> that movie twice.', opts:["seen","saw","see","seeing"], c:"seen" },
+  { b:3, q:'They\'ve lived here <span class="blank">___</span> 2015.', opts:["since","for","ago","from"], c:"since" },
+  { b:3, q:'You\'ve been to London, <span class="blank">___</span> you?', opts:["haven't","don't","aren't","didn't"], c:"haven't" },
+  { b:3, q:'While I <span class="blank">___</span>, it started to rain.', opts:["was walking","walked","walk","have walked"], c:"was walking" },
+  { b:3, q:'There <span class="blank">___</span> to be a cinema here, but they closed it.', opts:["used","use","using","uses"], c:"used" },
+  { b:3, q:'I\'ve <span class="blank">___</span> finished my project.', opts:["just","yet","ever","since"], c:"just" },
+  { b:3, q:'She was cooking <span class="blank">___</span> her kids were sleeping.', opts:["while","when","since","during"], c:"while" },
+  { b:3, q:'Have you <span class="blank">___</span> tried sushi?', opts:["ever","yet","already","since"], c:"ever" },
+  { b:3, q:'We haven\'t seen each other <span class="blank">___</span> last year.', opts:["since","for","ago","from"], c:"since" },
+  { b:3, q:'He didn\'t use <span class="blank">___</span> coffee, but now he loves it.', opts:["to drink","drinking","drink","drank"], c:"to drink" },
+  { b:3, q:'They\'ve been friends <span class="blank">___</span> a long time.', opts:["for","since","ago","during"], c:"for" },
+  // ===== Bloco 4 — Avançado (condicionais, wish, past perfect, voz passiva, reported speech, gerúndio/infinitivo) =====
   { b:4, q:'What would you do if you <span class="blank">___</span> the lottery?', opts:["won","win","will win","would win"], c:"won" },
   { b:4, q:'If I had studied English as a kid, I <span class="blank">___</span> fluent by now.', opts:["would be","will be","am","was"], c:"would be" },
   { b:4, q:'I wish I <span class="blank">___</span> more free time to practice.', opts:["had","have","would having","having"], c:"had" },
@@ -423,7 +459,19 @@ const BANK = [
   { b:4, q:'English <span class="blank">___</span> all over the world.', opts:["is spoken","speaks","is speaking","spoke"], c:"is spoken" },
   { b:4, q:'She said she <span class="blank">___</span> tired after the trip.', opts:["was","is","be","were being"], c:"was" },
   { b:4, q:'If I <span class="blank">___</span> you, I would start the course today.', opts:["were","am","was being","would be"], c:"were" },
-  { b:4, q:'I regret not <span class="blank">___</span> English earlier.', opts:["starting","to starting","start","started"], c:"starting" }
+  { b:4, q:'I regret not <span class="blank">___</span> English earlier.', opts:["starting","to starting","start","started"], c:"starting" },
+  { b:4, q:'The report <span class="blank">___</span> by the team last week.', opts:["was written","wrote","has wrote","is writing"], c:"was written" },
+  { b:4, q:'He told me he <span class="blank">___</span> call me later.', opts:["would","will","is","has"], c:"would" },
+  { b:4, q:'If you <span class="blank">___</span> harder, you would have passed.', opts:["had studied","studied","study","would study"], c:"had studied" },
+  { b:4, q:'I wish I <span class="blank">___</span> gone to the party last night.', opts:["had","have","would","did"], c:"had" },
+  { b:4, q:'This house <span class="blank">___</span> in 1990.', opts:["was built","built","has built","is building"], c:"was built" },
+  { b:4, q:'She asked me where I <span class="blank">___</span> from.', opts:["was","am","is","were being"], c:"was" },
+  { b:4, q:'I look forward to <span class="blank">___</span> you soon.', opts:["seeing","see","saw","seen"], c:"seeing" },
+  { b:4, q:'If it hadn\'t rained, we <span class="blank">___</span> to the beach.', opts:["would have gone","would go","went","will go"], c:"would have gone" },
+  { b:4, q:'He\'d rather <span class="blank">___</span> at home tonight.', opts:["stay","staying","to stay","stayed"], c:"stay" },
+  { b:4, q:'The problem <span class="blank">___</span> being discussed right now.', opts:["is","are","was being","has"], c:"is" },
+  { b:4, q:'They said they <span class="blank">___</span> finished the work.', opts:["had","have","has","were"], c:"had" },
+  { b:4, q:'I\'m used to <span class="blank">___</span> up early.', opts:["waking","wake","woke","waken"], c:"waking" }
 ];
 
 /* Sorteia n itens de um array, sem repetição */
@@ -455,7 +503,11 @@ const OPEN_BANK_A = [   // pessoal / presente — acessível a todos os níveis
   { q:"Describe your best friend. What is he or she like?", pt:"(Descreva seu melhor amigo ou amiga. Como ele ou ela é?)" },
   { q:"Do you live in a house or an apartment? Describe it.", pt:"(Você mora em casa ou apartamento? Descreva.)" },
   { q:"What's your routine like? What do you usually do on Saturdays?", pt:"(Como é sua rotina? O que você costuma fazer aos sábados?)" },
-  { q:"What's your neighborhood like? What's the best thing about it?", pt:"(Como é seu bairro? Qual a melhor coisa dele?)" }
+  { q:"What's your neighborhood like? What's the best thing about it?", pt:"(Como é seu bairro? Qual a melhor coisa dele?)" },
+  { q:"What kind of music, movies or series do you like? Why?", pt:"(De que tipo de música, filmes ou séries você gosta? Por quê?)" },
+  { q:"Do you like sports? Which ones do you play or watch?", pt:"(Você gosta de esportes? Quais você pratica ou assiste?)" },
+  { q:"What's your favorite kind of food? What do you usually eat?", pt:"(Qual sua comida favorita? O que você costuma comer?)" },
+  { q:"What do you do — do you work or study? Tell me about it.", pt:"(O que você faz — trabalha ou estuda? Conte sobre isso.)" }
 ];
 const OPEN_BANK_B = [   // passado / futuro / hipótese — diferencia os níveis
   { q:"Why do you want to improve your English? What are your plans?", pt:"(Por que você quer melhorar seu inglês? Quais são seus planos?)" },
@@ -463,7 +515,11 @@ const OPEN_BANK_B = [   // passado / futuro / hipótese — diferencia os nívei
   { q:"What did you do last weekend?", pt:"(O que você fez no último fim de semana?)" },
   { q:"What would you do if you won the lottery?", pt:"(O que você faria se ganhasse na loteria?)" },
   { q:"Have you ever traveled abroad? Where would you like to go?", pt:"(Você já viajou pro exterior? Pra onde gostaria de ir?)" },
-  { q:"What will you do when you finish school or in the next few years?", pt:"(O que você vai fazer quando terminar os estudos ou nos próximos anos?)" }
+  { q:"What will you do when you finish school or in the next few years?", pt:"(O que você vai fazer quando terminar os estudos ou nos próximos anos?)" },
+  { q:"Tell me about a person you admire and why.", pt:"(Fale sobre uma pessoa que você admira e por quê.)" },
+  { q:"How was your childhood? What did you use to do as a kid?", pt:"(Como foi sua infância? O que você costumava fazer quando criança?)" },
+  { q:"If you could change one thing about your city, what would it be?", pt:"(Se você pudesse mudar uma coisa na sua cidade, o que seria?)" },
+  { q:"What are your plans or goals for the future?", pt:"(Quais são seus planos ou objetivos para o futuro?)" }
 ];
 let OPEN_QUESTIONS = [];
 
