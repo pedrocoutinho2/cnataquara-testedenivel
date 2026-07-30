@@ -130,21 +130,43 @@ input.invalid{border-color:var(--red)}
 .open-q{font-size:1.15rem;font-weight:700;color:var(--blue);line-height:1.4;margin-bottom:4px}
 .open-q-pt{font-size:.8rem;color:var(--gray);margin-bottom:16px}
 textarea{min-height:110px;resize:vertical;line-height:1.5}
-.voice-row{display:flex;gap:10px;margin-top:12px}
-.btn-mic{
-  flex:1;display:flex;align-items:center;justify-content:center;gap:8px;
-  padding:13px;background:var(--blue);color:var(--white);
-  border:none;border-radius:12px;font-family:inherit;font-size:.95rem;font-weight:700;cursor:pointer;
-  transition:background .15s;
+.btn-mic-big{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  width:100%;padding:22px 16px;
+  background:var(--blue);color:var(--white);
+  border:none;border-radius:16px;font-family:inherit;cursor:pointer;
+  transition:background .15s,transform .1s;
 }
-.btn-mic:hover{background:#12306B}
-.btn-mic.rec{background:var(--red);animation:pulse 1.2s infinite}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(230,20,60,.45)}50%{box-shadow:0 0 0 10px rgba(230,20,60,0)}}
+.btn-mic-big:active{transform:scale(.98)}
+.btn-mic-big .mic-icon{font-size:2rem;line-height:1}
+.btn-mic-big .mic-label{font-size:1rem;font-weight:700}
+.btn-mic-big .mic-sub{font-size:.75rem;opacity:.85;font-weight:500}
+.btn-mic-big.rec{background:var(--red);animation:pulse 1.2s infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(230,20,60,.45)}50%{box-shadow:0 0 0 12px rgba(230,20,60,0)}}
+.rec-timer{
+  font-size:1.6rem;font-weight:800;color:var(--red);
+  text-align:center;margin-top:12px;font-variant-numeric:tabular-nums;
+}
+.rec-done{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:#EAF7EF;border:1.5px solid var(--green);border-radius:12px;
+  padding:14px 16px;margin-top:4px;font-size:.95rem;font-weight:600;color:#14663A;
+}
+.btn-redo{
+  background:none;border:none;font-family:inherit;font-size:.8rem;font-weight:600;
+  color:var(--blue);text-decoration:underline;cursor:pointer;flex-shrink:0;
+}
 .skip-link{
-  display:block;text-align:center;margin-top:16px;
+  display:block;text-align:center;margin-top:14px;
   font-size:.8rem;color:var(--gray);text-decoration:underline;cursor:pointer;
   background:none;border:none;font-family:inherit;width:100%;
 }
+.open-feedback{
+  text-align:center;padding:34px 10px;
+}
+.open-feedback .fb-emoji{font-size:2.6rem;display:block;margin-bottom:10px}
+.open-feedback .fb-text{font-size:1.1rem;font-weight:700;color:var(--blue)}
+.open-feedback .fb-sub{font-size:.85rem;color:var(--gray);margin-top:6px}
 /* ===== RESULT ===== */
 .result{text-align:center}
 .result .badge{
@@ -269,16 +291,42 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
       <div class="bar"><div class="bar-fill" id="barFillOpen" style="width:50%"></div></div>
     </div>
     <div class="card">
-      <p class="open-hint">Responda <strong>em inglês</strong>, do seu jeito. Pode <strong>falar</strong> no microfone ou <strong>escrever</strong> — vale errar, o que importa é se comunicar! 😉</p>
-      <div class="open-q" id="openQ"></div>
-      <div class="open-q-pt" id="openQPt"></div>
-      <textarea id="openAnswer" placeholder="Your answer in English..." maxlength="600"></textarea>
-      <div class="voice-row">
-        <button type="button" class="btn-mic" id="btnMic">🎤 Responder falando</button>
+      <div id="openQuestionZone">
+        <p class="open-hint">Responda <strong>em inglês</strong>, falando naturalmente — vale errar, o que importa é se comunicar! 😉</p>
+        <div class="open-q" id="openQ"></div>
+        <div class="open-q-pt" id="openQPt"></div>
+
+        <!-- modo áudio (principal) -->
+        <div id="voiceZone">
+          <button type="button" class="btn-mic-big" id="btnMic">
+            <span class="mic-icon">🎤</span>
+            <span class="mic-label" id="micLabel">Tocar para responder falando</span>
+            <span class="mic-sub" id="micSub">Seu áudio não é gravado nem armazenado</span>
+          </button>
+          <div class="rec-timer hidden" id="recTimer">0:00</div>
+          <div class="rec-done hidden" id="recDone">
+            <span>✅ Resposta gravada · <span id="recDur">0:00</span></span>
+            <button type="button" class="btn-redo" id="btnRedo">Regravar</button>
+          </div>
+        </div>
+
+        <!-- modo escrita (alternativo) -->
+        <div id="writeZone" class="hidden">
+          <textarea id="openAnswer" placeholder="Your answer in English..." maxlength="600"></textarea>
+        </div>
+
+        <div class="err" id="errOpen">Grave ou escreva sua resposta antes de enviar.</div>
+        <button type="button" class="btn" id="btnOpenNext">Enviar resposta ✅</button>
+        <button type="button" class="skip-link" id="btnWriteMode">Prefiro responder escrevendo</button>
+        <button type="button" class="skip-link" id="btnSkipOpen">Pular a etapa de conversação</button>
       </div>
-      <div class="err" id="errOpen">Escreva ou fale sua resposta antes de enviar (ou pule esta etapa).</div>
-      <button type="button" class="btn" id="btnOpenNext">Enviar resposta ✅</button>
-      <button type="button" class="skip-link" id="btnSkipOpen">Prefiro pular a etapa de conversação</button>
+
+      <!-- feedback rápido entre perguntas -->
+      <div id="openFeedback" class="open-feedback hidden">
+        <span class="fb-emoji" id="fbEmoji">🎉</span>
+        <div class="fb-text" id="fbText"></div>
+        <div class="fb-sub" id="fbSub"></div>
+      </div>
     </div>
   </section>
 
@@ -570,87 +618,212 @@ function answer(btn, opt, q){
   }, correct ? 550 : 950);
 }
 
-/* ============ Etapa de conversação ============ */
+/* ============ Etapa de conversação (áudio primeiro) ============ */
+let transcript = "";       // texto captado da fala (não exibido ao usuário)
+let recSeconds = 0;
+let recDuration = 0;
+let recTimerInt = null;
+let recState = "idle";     // idle | rec | done
+let writing = false;
+let userStopped = false;
+let SRClass = null;
+
 function startOpenStage(){
   show("screenOpen");
   renderOpenQuestion();
 }
+
 function renderOpenQuestion(){
   const oq = OPEN_QUESTIONS[openIdx];
   $("openNum").textContent = openIdx + 1;
   $("barFillOpen").style.width = ((openIdx) / OPEN_QUESTIONS.length * 100 || 8) + "%";
   $("openQ").textContent = oq.q;
   $("openQPt").textContent = oq.pt;
-  $("openAnswer").value = "";
   $("errOpen").classList.remove("show");
-  openMode = "escrito";
-  stopRecognition();
-  setupSpeech();
-}
+  $("openFeedback").classList.add("hidden");
+  $("openQuestionZone").classList.remove("hidden");
 
-/* --- Reconhecimento de voz (Web Speech API, roda no navegador) --- */
-function setupSpeech(){
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  const btn = $("btnMic");
-  if (!SR) {
-    btn.classList.add("hidden");   // navegador sem suporte: só escrita
-    return;
+  // reseta estados
+  transcript = ""; recSeconds = 0; recDuration = 0; recState = "idle";
+  stopRecognition(true);
+  $("openAnswer").value = "";
+  $("recTimer").classList.add("hidden");
+  $("recDone").classList.add("hidden");
+
+  SRClass = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+  if (!SRClass) {
+    // navegador sem reconhecimento de voz: vai direto pra escrita
+    enterWriteMode(true);
+  } else if (writing) {
+    enterWriteMode(false);   // pessoa já tinha escolhido escrever: mantém a escolha
+  } else {
+    enterVoiceMode();
   }
-  btn.classList.remove("hidden");
-  btn.textContent = "🎤 Responder falando";
+}
+
+function enterVoiceMode(){
+  writing = false;
+  $("voiceZone").classList.remove("hidden");
+  $("writeZone").classList.add("hidden");
+  $("btnWriteMode").classList.remove("hidden");
+  setMicIdle();
+}
+function enterWriteMode(noVoiceSupport){
+  writing = true;
+  stopRecognition(true);
+  $("voiceZone").classList.add("hidden");
+  $("writeZone").classList.remove("hidden");
+  $("btnWriteMode").classList.add("hidden");
+  if (transcript) $("openAnswer").value = transcript;   // aproveita o que já foi falado
+  if (noVoiceSupport) $("openAnswer").placeholder = "Your answer in English...";
+  $("openAnswer").focus();
+}
+$("btnWriteMode").addEventListener("click", () => enterWriteMode(false));
+
+/* --- Microfone --- */
+function setMicIdle(){
+  const btn = $("btnMic");
   btn.classList.remove("rec");
-  btn.onclick = () => recording ? stopRecognition() : startRecognition(SR, btn);
+  $("micLabel").textContent = "Tocar para responder falando";
+  $("micSub").textContent = "Seu áudio não é gravado nem armazenado";
+  $("recTimer").classList.add("hidden");
 }
-function startRecognition(SR, btn){
-  recognition = new SR();
-  recognition.lang = "en-US";
-  recognition.continuous = true;
-  recognition.interimResults = true;
-  let finalText = $("openAnswer").value.trim();
-
-  recognition.onresult = e => {
-    let interim = "";
-    for (let i = e.resultIndex; i < e.results.length; i++) {
-      const t = e.results[i][0].transcript;
-      if (e.results[i].isFinal) finalText = (finalText + " " + t).trim();
-      else interim += t;
-    }
-    $("openAnswer").value = (finalText + " " + interim).trim();
-    if (finalText) openMode = "falado";
-  };
-  recognition.onerror = ev => {
-    stopRecognition();
-    if (ev.error === "not-allowed") {
-      alert("Precisamos da permissão do microfone para você responder falando. Você também pode escrever a resposta. 😉");
-    }
-  };
-  recognition.onend = () => {
-    recording = false;
-    btn.textContent = "🎤 Responder falando";
-    btn.classList.remove("rec");
-  };
-
-  recording = true;
-  btn.textContent = "⏹ Parar gravação";
-  btn.classList.add("rec");
-  recognition.start();
-}
-function stopRecognition(){
-  if (recognition) { try { recognition.stop(); } catch(e){} recognition = null; }
-  recording = false;
+function fmtTime(s){
+  return Math.floor(s/60) + ":" + String(s%60).padStart(2,"0");
 }
 
-$("btnOpenNext").addEventListener("click", () => {
-  const txt = $("openAnswer").value.trim();
-  if (txt.length < 5) { $("errOpen").classList.add("show"); return; }
-  stopRecognition();
-  openAnswers.push({ pergunta: OPEN_QUESTIONS[openIdx].q, resposta: txt, modo: openMode });
-  openIdx++;
-  (openIdx < OPEN_QUESTIONS.length) ? renderOpenQuestion() : finishTest();
+$("btnMic").addEventListener("click", () => {
+  if (recState === "rec") { userStopRecording(); return; }
+  startRecording();
 });
 
+function startRecording(){
+  transcript = "";   // toda gravação começa do zero
+  recState = "rec"; userStopped = false; recSeconds = 0; openMode = "falado";
+  $("recDone").classList.add("hidden");
+  $("errOpen").classList.remove("show");
+
+  const btn = $("btnMic");
+  btn.classList.add("rec");
+  $("micLabel").textContent = "⏹ Tocar para parar";
+  $("micSub").textContent = "Pode falar! Estamos te ouvindo...";
+  $("recTimer").textContent = "0:00";
+  $("recTimer").classList.remove("hidden");
+  recTimerInt = setInterval(() => {
+    recSeconds++;
+    $("recTimer").textContent = fmtTime(recSeconds);
+    if (recSeconds >= 120) userStopRecording();   // limite de 2 min
+  }, 1000);
+
+  launchRecognition();
+}
+
+function launchRecognition(){
+  recognition = new SRClass();
+  recognition.lang = "en-US";
+  recognition.continuous = true;
+  recognition.interimResults = false;
+  recognition.onresult = e => {
+    for (let i = e.resultIndex; i < e.results.length; i++) {
+      if (e.results[i].isFinal) transcript = (transcript + " " + e.results[i][0].transcript).trim();
+    }
+  };
+  recognition.onerror = ev => {
+    if (ev.error === "not-allowed") {
+      stopTimer(); recState = "idle"; setMicIdle();
+      alert("Precisamos da permissão do microfone para você responder falando. Se preferir, toque em \u201cPrefiro responder escrevendo\u201d. 😉");
+    }
+  };
+  // Alguns navegadores encerram o reconhecimento sozinhos em pausas de fala:
+  // se a pessoa não mandou parar, religa e continua contando o tempo.
+  recognition.onend = () => {
+    if (recState === "rec" && !userStopped) {
+      try { launchRecognition(); } catch(e){ userStopRecording(); }
+    }
+  };
+  recognition.start();
+}
+
+function userStopRecording(){
+  userStopped = true;
+  stopTimer();
+  recDuration = recSeconds;
+  stopRecognition(false);
+  recState = "done";
+  setMicIdle();
+  $("micLabel").textContent = "Gravar de novo do zero";
+  $("micSub").textContent = "Ou envie a resposta abaixo";
+  $("recDur").textContent = fmtTime(recDuration);
+  $("recDone").classList.remove("hidden");
+}
+function stopTimer(){
+  if (recTimerInt) { clearInterval(recTimerInt); recTimerInt = null; }
+  $("recTimer").classList.add("hidden");
+}
+function stopRecognition(reset){
+  if (recognition) { try { recognition.onend = null; recognition.stop(); } catch(e){} recognition = null; }
+  stopTimer();
+  if (reset) { userStopped = true; recState = "idle"; }
+}
+
+$("btnRedo").addEventListener("click", () => {
+  transcript = ""; recDuration = 0; recState = "idle";
+  $("recDone").classList.add("hidden");
+  setMicIdle();
+});
+
+/* --- Envio + feedback rápido --- */
+$("btnOpenNext").addEventListener("click", () => {
+  let resposta = "";
+  if (writing) {
+    resposta = $("openAnswer").value.trim();
+    openMode = "escrito";
+    if (resposta.length < 5) { $("errOpen").textContent = "Escreva sua resposta em inglês antes de enviar."; $("errOpen").classList.add("show"); return; }
+  } else {
+    if (recState === "rec") userStopRecording();
+    if (recState !== "done" || recDuration < 2) {
+      $("errOpen").textContent = "Grave sua resposta tocando no microfone (ou escolha escrever).";
+      $("errOpen").classList.add("show"); return;
+    }
+    resposta = transcript.trim();
+    if (resposta.length < 5) {
+      $("errOpen").textContent = "Não conseguimos captar sua fala. 😕 Tenta gravar de novo mais perto do microfone, ou toque em \u201cPrefiro responder escrevendo\u201d.";
+      $("errOpen").classList.add("show");
+      $("btnRedo").click();
+      return;
+    }
+  }
+
+  stopRecognition(true);
+  openAnswers.push({
+    pergunta: OPEN_QUESTIONS[openIdx].q,
+    resposta,
+    modo: openMode,
+    duracao_seg: openMode === "falado" ? recDuration : null
+  });
+  showOpenFeedback(openMode, recDuration);
+});
+
+function showOpenFeedback(modo, dur){
+  $("openQuestionZone").classList.add("hidden");
+  const isLast = openIdx === OPEN_QUESTIONS.length - 1;
+  $("fbEmoji").textContent = modo === "falado" ? "🎙️" : "✍️";
+  $("fbText").textContent = modo === "falado"
+    ? `Boa! Você falou por ${fmtTime(dur)} em inglês! 👏`
+    : "Boa! Resposta enviada! 👏";
+  $("fbSub").textContent = isLast
+    ? "Fechando seu teste..."
+    : "Se prepara que vem mais uma!";
+  $("openFeedback").classList.remove("hidden");
+
+  setTimeout(() => {
+    openIdx++;
+    (openIdx < OPEN_QUESTIONS.length) ? renderOpenQuestion() : finishTest();
+  }, 1600);
+}
+
 $("btnSkipOpen").addEventListener("click", () => {
-  stopRecognition();
+  stopRecognition(true);
   finishTest();
 });
 
@@ -680,18 +853,24 @@ async function finishTest(){
   const msg = encodeURIComponent(`Olá! Acabei de fazer o teste de nível online do CNA Taquara e acertei ${acertos} de 12. Quero saber meu resultado completo! 😄`);
   $("btnWhats").href = `https://wa.me/${CONFIG.WHATSAPP}?text=${msg}`;
 
-  // ---- Persistência (não bloqueia a tela) ----
+  // ---- Persistência via RPC segura (não bloqueia a tela) ----
   if (sb && leadId) {
+    const CURSO_MAP = {
+      "Iniciante":"CNA Fly 1", "Básico":"CNA Fly", "Intermediário":"CNA Progression",
+      "Pré-avançado":"CNA Expansion", "Avançado":"CNA Gold / Platinum"
+    };
     try {
-      await sb.from(CONFIG.TABELA).update({
-        resultado_nivel: nivelInterno,
-        acertos, total_perguntas: QUESTIONS.length,
-        respostas: answers,
-        respostas_abertas: openAnswers.length ? openAnswers : null,
-        concluido: true,
-        concluido_em: new Date().toISOString()
-      }).eq("id", leadId);
-    } catch(err){ console.error("[CNA] Erro ao salvar resultado:", err); }
+      const { error } = await sb.rpc("fn_concluir_teste_nivel", {
+        p_id: leadId,
+        p_resultado_nivel: nivelInterno,
+        p_curso: CURSO_MAP[nivelInterno] || null,
+        p_acertos: acertos,
+        p_total: QUESTIONS.length,
+        p_respostas: answers,
+        p_respostas_abertas: openAnswers.length ? openAnswers : null
+      });
+      if (error) console.error("[CNA] Erro ao concluir teste:", error);
+    } catch(err){ console.error("[CNA] Erro ao concluir teste:", err); }
 
     // Avaliação por IA das respostas abertas (fire-and-forget)
     if (openAnswers.length) {
