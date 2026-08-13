@@ -56,13 +56,13 @@ const CONFIG = {
 - E-mail de contato para direitos do titular (em `termos-lgpd.html`)
 
 ### 4. GitHub Pages
-1. Crie um repositório (ex.: `cna-teste-nivel`) e suba os 4 arquivos na raiz.
+1. Crie um repositório (ex.: `cnataquara-testedenivel`) e suba os 4 arquivos na raiz.
 2. Em **Settings → Pages**, escolha a branch `main` e a pasta `/ (root)`.
-3. A página fica em `https://SEU-USUARIO.github.io/cna-teste-nivel/`.
+3. A página fica em `https://SEU-USUARIO.github.io/cnataquara-testedenivel/`.
 
 ### 5. Links de campanha (exemplo)
 ```
-https://SEU-USUARIO.github.io/cna-teste-nivel/?utm_source=meta&utm_medium=paid&utm_campaign=teste-nivel-agosto&utm_content=reels-01
+https://SEU-USUARIO.github.io/cnataquara-testedenivel/?utm_source=meta&utm_medium=paid&utm_campaign=teste-nivel-agosto&utm_content=reels-01
 ```
 
 ## Acompanhamento dos leads
