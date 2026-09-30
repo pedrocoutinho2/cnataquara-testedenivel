@@ -368,7 +368,6 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
 const CONFIG = {
   SUPABASE_URL: "https://gpnwmsnayrqjcmhqrtpx.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imdwbndtc25heXJxamNtaHFydHB4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODUyNjY4NTEsImV4cCI6MjEwMDg0Mjg1MX0.xQARkaQ9kPmVwqMM5ixfUCHP6cmEHOtI2eqVWFEjlrw",
-  WHATSAPP: "5521977193899",                          // WhatsApp da unidade
   TABELA: "leads_teste_nivel",
   EDGE_FUNCTION: "avaliar-respostas"                  // função que avalia a conversação com IA
 };
@@ -380,6 +379,40 @@ if (CONFIG.SUPABASE_URL.startsWith("https://")) {
 } else {
   console.warn("[CNA] Supabase não configurado — o teste roda, mas o lead não será salvo.");
 }
+
+/* ============ Unidade ============
+   Vem de ?unidade=<slug>, validada em crm_unidades (status diferente de inativa).
+   Sem parâmetro ou com slug inválido: taquara, para os links e QR codes que já
+   existem continuarem funcionando. Nome vem do banco; WhatsApp vem de
+   crm_configs (whatsapp_contato) da unidade — sem ele, o botão some. */
+const UNIDADE_PADRAO = "taquara";
+let UNID = { slug: UNIDADE_PADRAO, nome: "" };
+let WHATS_UNIDADE = "";
+const UNID_PRONTA = (async () => {
+  if (!sb) return;
+  const pedida = (new URLSearchParams(location.search).get("unidade") || "").trim().toLowerCase();
+  try {
+    let r = null;
+    if (pedida) {
+      const { data } = await sb.from("crm_unidades").select("slug,nome").eq("slug", pedida).neq("status", "inativa").maybeSingle();
+      r = data;
+    }
+    if (!r) {
+      const { data } = await sb.from("crm_unidades").select("slug,nome").eq("slug", UNIDADE_PADRAO).maybeSingle();
+      r = data;
+    }
+    if (r) UNID = r;
+  } catch(err){ console.error("[CNA] Erro ao carregar a unidade:", err); }
+  try {
+    const { data } = await sb.from("crm_configs").select("valor").eq("unidade", UNID.slug).eq("chave", "whatsapp_contato").maybeSingle();
+    const d = String((data && data.valor) || "").replace(/\D/g, "");
+    WHATS_UNIDADE = d ? (d.startsWith("55") ? d : "55" + d) : "";
+  } catch(err){ console.error("[CNA] Erro ao carregar o WhatsApp da unidade:", err); }
+  if (UNID.nome) {
+    document.querySelectorAll(".brand .unidade").forEach(el => { el.textContent = UNID.nome; });
+    document.title = "Teste de Nível de Inglês Grátis | CNA " + UNID.nome;
+  }
+})();
 
 /* ============================================================
    Banco de perguntas objetivas — 20 por bloco de dificuldade
@@ -611,8 +644,10 @@ $("leadForm").addEventListener("submit", async e => {
   leadNome = nome.split(/\s+/)[0];
   if (sb) {
     try {
+      await UNID_PRONTA;
       await sb.from(CONFIG.TABELA).insert({
         id: leadId,
+        unidade: UNID.slug,
         nome, idade,
         telefone: digits(telInput.value),
         aceite_lgpd: true,
@@ -906,8 +941,10 @@ async function finishTest(){
     ? `Você acertou ${acertos} de 12 perguntas objetivas e ainda encarou a etapa de conversação — mandou muito bem!`
     : `Você acertou ${acertos} de 12 perguntas objetivas — mandou bem demais!`;
 
-  const msg = encodeURIComponent(`Olá! Acabei de fazer o teste de nível online do CNA Taquara e acertei ${acertos} de 12. Quero saber meu resultado completo! 😄`);
-  $("btnWhats").href = `https://wa.me/${CONFIG.WHATSAPP}?text=${msg}`;
+  await UNID_PRONTA;
+  const msg = encodeURIComponent(`Olá! Acabei de fazer o teste de nível online do CNA${UNID.nome ? " " + UNID.nome : ""} e acertei ${acertos} de 12. Quero saber meu resultado completo! 😄`);
+  if (WHATS_UNIDADE) $("btnWhats").href = `https://wa.me/${WHATS_UNIDADE}?text=${msg}`;
+  else $("btnWhats").classList.add("hidden");
 
   // ---- Persistência via RPC segura (não bloqueia a tela) ----
   if (sb && leadId) {
