@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Teste de Nível de Inglês Grátis | CNA Taquara</title>
-<meta name="description" content="Descubra como está seu inglês em poucos minutos. Teste rápido e gratuito do CNA Taquara, na Zona Oeste do Rio. Você monstrão no Inglês!">
+<title>CNA · Teste de nível de inglês online</title>
+<meta name="description" content="Descubra como está seu inglês em poucos minutos. Teste rápido e gratuito do CNA. Você monstrão no Inglês!">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -212,7 +212,7 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
 <body>
 
 <header>
-  <div class="brand"><span class="cna">CNA</span><span class="unidade">Taquara</span></div>
+  <div class="brand"><span class="cna">CNA</span><span class="unidade"></span></div>
 </header>
 
 <main><div class="wrap">
@@ -351,7 +351,6 @@ footer a{color:var(--blue);font-weight:600;text-decoration:none}
 </div></main>
 
 <footer>
-  CNA Taquara — Estrada da Soca, 129, Taquara, Rio de Janeiro/RJ<br>
   <a href="termos-lgpd.html">Privacidade (LGPD)</a> · <a href="politica-cookies.html">Política de Cookies</a>
 </footer>
 
@@ -410,7 +409,7 @@ const UNID_PRONTA = (async () => {
   } catch(err){ console.error("[CNA] Erro ao carregar o WhatsApp da unidade:", err); }
   if (UNID.nome) {
     document.querySelectorAll(".brand .unidade").forEach(el => { el.textContent = UNID.nome; });
-    document.title = "Teste de Nível de Inglês Grátis | CNA " + UNID.nome;
+    document.title = "CNA " + UNID.nome + " · Teste de nível de inglês online";
   }
 })();
 
